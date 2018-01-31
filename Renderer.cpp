@@ -35,10 +35,6 @@ int main()
 	}
 
 	ShaderProgramSource source = parseShader("res/shaders/basic.shader");
-	std::cout << "VERTEX" << std::endl;
-	std::cout << source.VertexSource << std::endl;
-	std::cout << "FRAGMENT" << std::endl;
-	std::cout << source.FragmentSource << std::endl;
 
 	// unsigned int shader = createShader(vertexShader, fragmentShader);
 	// glUseProgram(shader);
