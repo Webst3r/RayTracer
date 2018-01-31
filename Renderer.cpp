@@ -36,9 +36,6 @@ int main()
 
 	ShaderProgramSource source = parseShader("res/shaders/basic.shader");
 
-	// unsigned int shader = createShader(vertexShader, fragmentShader);
-	// glUseProgram(shader);
-
 	// render loop
 	while (!glfwWindowShouldClose(window))
 	{
@@ -50,9 +47,6 @@ int main()
 		/* Poll for and process events */
 		glfwPollEvents();
 	}
-
-	// glDeleteProgram(shader);
-
 	glfwTerminate();
 	return 0;
 }
