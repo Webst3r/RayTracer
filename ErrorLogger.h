@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Shader.h"
+#include <glad\glad.h>
 #include <iostream>
 
 #define GLCall(x) GLClearError();\
