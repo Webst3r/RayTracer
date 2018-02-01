@@ -3,6 +3,7 @@
 #include <glad\glad.h>
 #include <iostream>
 
+#define ASSERT(x) if (!(x))
 #define GLCall(x) GLClearError();\
 	x;\
 	ASSERT(GLLogCall(#x, __FILE__, __LINE__))
