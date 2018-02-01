@@ -20,14 +20,22 @@ public:
 		std::string vertexShaderSource;
 		std::string fragmentShaderSource;
 
+		// Not rendered
+		std::string computeShaderSource;
+
 		std::ifstream vertexShaderFile(vertexShaderFilepath);
 		std::ifstream fragmentShaderFile(fragmentShaderFilepath);
 
 		std::stringstream vertexShaderSourceStream;
 		std::stringstream fragmentShaderSourceStream; 
 
+		vertexShaderSourceStream << vertexShaderFile.rdbuf();
+		fragmentShaderSourceStream << fragmentShaderFile.rdbuf();
+
 		vertexShaderSource = vertexShaderSourceStream.str();
 		fragmentShaderSource = fragmentShaderSourceStream.str();
+
+		std::cout << vertexShaderSource << std::endl;
 
 		// Create vertex shader
 		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -36,7 +44,7 @@ public:
 		GLCall(glCompileShader(vertexShader));
 
 		// Create fragment shader
-		GLuint fragmentShader = glCreateShader(GL_VERTEX_SHADER);
+		GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 		const char* fss = fragmentShaderSource.c_str();
 		GLCall(glShaderSource(fragmentShader, 1, &fss, nullptr));
 		GLCall(glCompileShader(fragmentShader));
@@ -59,6 +67,6 @@ public:
 		glUseProgram(program);
 	}
 
-private:
 
+private:
 };
