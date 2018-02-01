@@ -9,6 +9,8 @@
 #include <string>
 #include <sstream>
 
+//	Names are going to get confusing in this class so just be careful 
+
 class Shader
 {
 public:
@@ -23,6 +25,7 @@ public:
 		// Not rendered
 		std::string computeShaderSource;
 
+		// The next 11 lines load GLSL into a stringstream so that OpenGL can understand and compile
 		std::ifstream vertexShaderFile(vertexShaderFilepath);
 		std::ifstream fragmentShaderFile(fragmentShaderFilepath);
 
@@ -48,6 +51,8 @@ public:
 		const char* fss = fragmentShaderSource.c_str();
 		GLCall(glShaderSource(fragmentShader, 1, &fss, nullptr));
 		GLCall(glCompileShader(fragmentShader));
+
+		// TODO: Write code for compute shader
 
 		// Create shader program
 		program = glCreateProgram();
