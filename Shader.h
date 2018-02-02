@@ -9,7 +9,7 @@
 #include <string>
 #include <sstream>
 
-//	Names are going to get confusing in this class so just be careful 
+//	Names are going to get confusing in this class so just be careful
 
 class Shader
 {
@@ -23,7 +23,7 @@ public:
 		std::string fragmentShaderSource;
 
 		// Not rendered
-		std::string computeShaderSource;
+		// std::string computeShaderSource;
 
 		// The next 11 lines load GLSL into a stringstream so that OpenGL can understand and compile
 		std::ifstream vertexShaderFile(vertexShaderFilepath);
@@ -37,8 +37,6 @@ public:
 
 		vertexShaderSource = vertexShaderSourceStream.str();
 		fragmentShaderSource = fragmentShaderSourceStream.str();
-
-		std::cout << vertexShaderSource << std::endl;
 
 		// Create vertex shader
 		GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -67,11 +65,11 @@ public:
 
 	}
 
-	void useProgram()
+	void UseProgram()
 	{
-		glUseProgram(program);
+		GLCall(glUseProgram(program));
 	}
 
-
 private:
+
 };
