@@ -5,9 +5,6 @@
 #include "ErrorLogger.h"
 
 #include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
 
 int main()
 {
@@ -19,7 +16,7 @@ int main()
 		return -1;
 
 	// create window
-	window = glfwCreateWindow(800, 600, "OpenGL Window", nullptr, nullptr);
+	window = glfwCreateWindow(800, 600, "Raytracer", nullptr, nullptr);
 	if (!window)
 	{
 		std::cout << "Failed to create window" << std::endl;
@@ -43,39 +40,41 @@ int main()
 
 	float vertices[] = {
 		-0.5f, -0.5f, 0.0f,
-		0.5f, -0.5f, 0.0f, 
-		0.0f,  0.5f, 0.0f  
+		 0.5f, -0.5f, 0.0f, 
+		 0.0f,  0.5f, 0.0f  
 	};
 
-	unsigned int VBO, VAO;
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	glBindVertexArray(VAO);
+	GLuint VBO;
+	GLuint VAO;
 
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	GLCall(glGenVertexArrays(1, &VAO));
+	GLCall(glGenBuffers(1, &VBO));
+	GLCall(glBindVertexArray(VAO));
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
+	GLCall(glBindBuffer(GL_ARRAY_BUFFER, VBO));
+	GLCall(glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW));
 
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	GLCall(glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0));
+	GLCall(glEnableVertexAttribArray(0));
 
-	glBindVertexArray(0);
+	GLCall(glBindBuffer(GL_ARRAY_BUFFER, 0));
+
+	GLCall(glBindVertexArray(0));
 
 	// render loop
 	while (!glfwWindowShouldClose(window))
 	{
 
-		shaderSource.useProgram();
+		shaderSource.UseProgram();
 
 		/* Render here */
-		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		GLCall(glClearColor(0.2f, 0.3f, 0.3f, 1.0f));
+		GLCall(glClear(GL_COLOR_BUFFER_BIT));
 		
 		// Use the program object we created earlier for rendering    
-		glUseProgram(shaderSource.program);
-		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		GLCall(glUseProgram(shaderSource.program));
+		GLCall(glBindVertexArray(VAO));
+		GLCall(glDrawArrays(GL_TRIANGLES, 0, 3));
 
 		/* Swap front and back buffers */
 		glfwSwapBuffers(window);
@@ -84,8 +83,9 @@ int main()
 		glfwPollEvents();
 	}
 
-	GLCall(glDeleteProgram(shaderSource.program))
+	GLCall(glDeleteProgram(shaderSource.program));
 
 	glfwTerminate();
+
 	return 0;
 }
